@@ -1,40 +1,19 @@
-# 📝 Handwritten Prescription Analysis: Data Annotation Tool
+# Computer Vision Dataset Annotation and Region of Interest (ROI) Extractor
 
-This component of the repository contains the **Manual Dataset Annotation & Cropping Utility**, which serves as the initial data-ingestion step in the "Handwritten Prescription Analysis" pipeline. This tool allows you to convert raw, full-page prescription images into a structured, labeled dataset of individual word segments for training CRNN/LSTM networks.
+An automated, high-throughput region-of-interest (ROI) extraction and grounding utility built for multi-modal Computer Vision and Deep Learning pipelines. This tool standardizes the initial phase of dataset engineering—specifically targeting tasks like Handwritten Prescription Analysis, Text Recognition (OCR), and Localized Object Classification—by allowing developers to extract sub-regions from raw high-resolution images, map spatial scale transformations, and map ground-truth labels directly into standardized filenames using non-colliding Universally Unique Identifiers (UUIDs).
 
 ---
 
 ## 🚀 Key Features
 
-* **Intelligent ROI Selection:** Implements a graphical user interface to manually isolate handwritten medicine names from complex backgrounds.
-* **Zero-Loss Cropping:** Annotations are performed on a scaled preview for optimal usability, while the actual cropping logic targets the **original high-resolution source** via calculated scale factors.
-* **Automated File Management:** * Generates unique file identifiers using `UUID` to guarantee no accidental overwrites.
-    * Automatically structures and provisions target output directories.
-    * Standardizes naming convention: `[label]_[unique_id].jpg`.
+* **Dynamic Spatial Scaling:** Automatically maps pixel coordinates selected on scaled display windows back to original, high-resolution native image coordinate spaces using calculated scale factors ($S = H_{original} / H_{display}$).
+* **Interactive ROI Grounding:** Integrates an active loop using OpenCV's standard Region of Interest (`selectROI`) API for manual bounding box generation via interactive mouse/keyboard interrupts.
+* **Collision-Free Filename Serialization:** Appends an 8-character hardware-independent `uuid4` cryptographic salt token to prevent namespace collision on shared labels.
+* **Real-time Preview Engine:** Displays immediate sub-matrix crops via synchronous GUI rendering before committing disk writes.
+* **Automatic Multi-format IO Mapping:** Parses local filesystem directories using specific MIME-type sub-strings (`.png`, `.jpg`, `.jpeg`) with fault-tolerant exception handling for corrupted headers.
 
 ---
 
-## 🛠️ Technical Implementation
+## 🛠 Architecture & Tech Stack
 
-### **Coordinate Remapping Logic**
-To preserve the highest data resolution for training quality, the script calculates a linear ratio between the raw source dimensions and the target UI viewport window size:
-
-$$Scale\ Factor = \frac{Original\ Image\ Height}{Display\ Height}$$
-
-When a bounding box is drawn on-screen, the extracted coordinates $(x, y, w, h)$ are mapped back to the raw source coordinate grid to output full-resolution crops.
-
-### **Workflow Processing Step**
-1. **Load:** Scans targeted raw graphics files from the source directory.
-2. **Scale:** Implements an aspect-ratio-preserving downscale to standard user-display dimensions.
-3. **Select:** Polls OpenCV's native ROI selection module for bounding box array inputs.
-4. **Label:** Records text annotations typed via standard CLI input.
-5. **Save:** Cuts and writes the isolated data array out to disk with a hashed filename.
-
----
-
-## 💻 Usage Instructions
-
-### **1. Prerequisites**
-Ensure you have Python installed along with the OpenCV library:
-```bash
-pip install opencv-python
+The architecture separates the physical display limits of client machines from the ground-truth high-fidelity image structures. It operates as a localized hardware-accelerated processing loop.
