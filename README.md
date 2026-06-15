@@ -19,7 +19,6 @@ This project was developed as a Final Year Design Project for a Bachelor of Scie
 - [Tech Stack & Environment Setup](#-tech-stack--environment-setup)
 - [Functional Requirements](#-functional-requirements)
 - [Future Roadmap](#-future-roadmap)
-- [Repository Artifacts](#-repository-artifacts)
 - [Contributors & Team](#-contributors--team)
 
 ---
@@ -99,32 +98,6 @@ PharmaScan Pro utilizes a **Deterministic Heuristic Correction System** that com
 * **Visualization:** Matplotlib
 * **Interface Layer:** Tkinter
 
-### 🛠️ Step-by-Step Installation
-
-1.  **Clone the Repository:**
-    ```bash
-    git clone https://github.com/yourusername/PharmaScan-Pro.git
-    cd PharmaScan-Pro
-    ```
-
-2.  **Initialize Virtual Environment:**
-    ```bash
-    python -m venv venv
-    source venv/bin/activate  # On Windows use `venv\Scripts\activate`
-    ```
-
-3.  **Install Essential Dependencies:**
-    ```bash
-    pip install torch==1.12.0+cu113 torchvision==0.13.0+cu113 --extra-index-url https://download.pytorch.org/whl/cu113
-    pip install opencv-python pandas numpy matplotlib
-    ```
-
-4.  **Execute the Desktop UI Application:**
-    ```bash
-    python src/app.py
-    ```
-
----
 
 ## 📋 Functional Requirements
 
@@ -141,25 +114,6 @@ PharmaScan Pro utilizes a **Deterministic Heuristic Correction System** that com
 * **Offline Global Edge AI Engine Compilation:** Porting compressed model paths directly into `TensorFlow Lite (TFLite)` and `ONNX` file profiles to facilitate fully offline cross-platform deployments on iOS and Android devices.
 * **Advanced Prescription NER Integration:** Upgrading recurrent sequences to parse structured entity types, automatically separating compound dosages (e.g., `500mg`) and usage frequency sequences (e.g., `1+0+1`).
 
----
-
-## 📂 Repository Artifacts
-
-```
-PharmaScan-Pro/
-│
-├── .github/workflows/       # Automated CI/CD execution structures
-├── data/                    # Dynamic augmentation pipelines & sample dataset paths
-├── src/                     # Production source lines
-│   ├── app.py               # Desktop GUI application setup (Tkinter initialization)
-│   ├── preprocess.py        # Image pre-processing script (Adaptive Thresholding, Greyscale)
-│   ├── model.py             # Neural net network architecture maps (EfficientNet-B0 + GRU)
-│   └── postprocess.py       # Heuristic Levenshtein logic & database loop rules
-├── notebooks/               # Benchmark experiments and loss convergence models
-└── requirements.txt         # Package dependency declarations
-```
-
----
 
 ## 👥 Contributors & Team
 
